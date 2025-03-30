@@ -78,15 +78,24 @@ El formulario de historia clínica incluye las siguientes secciones:
 
 ### 3. Generación de PDF
 - Creación de documentos PDF con texto seleccionable
+- Generación inteligente que omite campos, títulos y subtítulos vacíos
 - Organización inteligente del contenido para evitar cortes de secciones entre páginas
-- Inclusión de fecha y espacio para firma del médico
+- Inclusión de fecha en el encabezado y espacio para firma del médico
 - Nombre del archivo personalizado con el nombre del paciente y la fecha
+- Verificación automática de contenido para evitar generar PDF vacíos
 
-### 4. Interfaz de Usuario
+### 4. Estructura Modular
+- Arquitectura basada en componentes independientes y reutilizables
+- Separación clara por secciones médicas (ficha de identificación, antecedentes, exploración física, etc.)
+- Componentes genéricos reutilizables (campos de texto, opciones radio, etc.)
+- Gestión de estado centralizada con propagación eficiente de cambios
+
+### 5. Interfaz de Usuario
 - Diseño responsivo adaptable a diferentes dispositivos
 - Tema claro/oscuro
 - Notificaciones para informar al usuario sobre el estado de las operaciones
 - Botones intuitivos para navegar, guardar e imprimir
+- Campos condicionales que se muestran según las selecciones del usuario
 
 ## Tecnologías Utilizadas
 
@@ -99,7 +108,46 @@ El formulario de historia clínica incluye las siguientes secciones:
 - React Scripts
 - React App Rewired
 - Cross-env para variables de entorno
-- gh-pages para despliegue en GitHub Pages
+
+## Arquitectura de Componentes
+
+El proyecto sigue una arquitectura modular organizada por funcionalidades:
+
+### Componentes Principales
+- `HistoriaClinica.jsx`: Componente principal que orquesta todas las secciones
+- `PDFGenerator.jsx`: Servicio especializado para la generación inteligente de PDF
+
+### Secciones Médicas
+- `FichaIdentificacion.jsx`: Datos personales y demográficos
+- `AntecedentesHeredofamiliares.jsx`: Historia familiar y enfermedades hereditarias
+- `AntecedentesPersonalesNoPatologicos.jsx`: Hábitos y estilo de vida
+- `AntecedentesPersonalesPatologicos.jsx`: Historial médico personal
+- `PadecimientoActual.jsx`: Condición médica actual
+- `ExploracionFisica.jsx`: Resultados del examen físico
+- `DiagnosticoTratamiento.jsx`: Diagnóstico y plan de tratamiento
+
+### Componentes Utilitarios
+- `UtilComponents.jsx`: Componentes genéricos reutilizables
+  - `CampoTexto`: Campos de texto con manejo avanzado de estado
+  - `RadioSiNo`: Selector de opciones Sí/No con campos de detalles condicionales
+  - `GrupoCamposTexto`: Agrupaciones de campos relacionados
+  - `SeccionFormulario`: Contenedor estándar para secciones
+
+### Gestión de Estado
+La aplicación utiliza un enfoque centralizado donde:
+- El estado principal se mantiene en `HistoriaClinica.jsx`
+- Se propagan cambios mediante `handleChange` a todos los componentes
+- Se implementa validación previa antes de la generación de PDF
+- Se gestiona el ciclo de vida de los componentes para mantener la coherencia de datos
+
+## Mejoras Implementadas
+
+- **Modularización completa** del código para mejor mantenibilidad
+- **Generación inteligente de PDF** que omite secciones vacías
+- **Validación de datos** para prevenir documentos incompletos
+- **Gestión eficiente del estado** para mantener sincronizados todos los componentes
+- **Presentación profesional** mediante formato clínico estandarizado
+- **Optimización de rendimiento** evitando re-renderizados innecesarios
 
 ## Instalación
 
