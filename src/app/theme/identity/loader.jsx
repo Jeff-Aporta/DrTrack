@@ -11,6 +11,4 @@ load_scrollbar(scrollbar);
 
 init()
 
-console.log(getTheme())
-
 export default {status:"runned"};
